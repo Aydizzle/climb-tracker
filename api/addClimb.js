@@ -32,8 +32,6 @@ await sheets.spreadsheets.values.append({
   },
 });
 
-const rows = response.data.values;
-
 // Send it back to the user
 return res.status(200).json({ success: true });
 }
