@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   // Fetch data from your sheet
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
-    range: 'Sheet1!A2:D'
+    range: 'Climbs!A2:D'
   });
   
   const rows = response.data.values;

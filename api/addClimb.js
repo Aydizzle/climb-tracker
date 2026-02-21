@@ -25,7 +25,7 @@ const date = new Date().toLocaleDateString(); // Get today's date
 
 await sheets.spreadsheets.values.append({
   spreadsheetId: process.env.SHEET_ID,
-  range: 'Sheet1!A:D',
+  range: 'Climbs!A:D',
   valueInputOption: 'USER_ENTERED',
   resource: {
     values: [[date, climb, grade, notes]],
