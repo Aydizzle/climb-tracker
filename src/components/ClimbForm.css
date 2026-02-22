@@ -1,0 +1,13 @@
+.climb-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    margin: auto;
+}
+
+.submit-button {
+    background-color: hsla(343.22,82.66%,66.08%,1);
+    padding: 10px;
+    color: white;
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './ClimbForm.css';
 
 function ClimbForm () {
 
@@ -27,7 +28,8 @@ function ClimbForm () {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="climb-form"
+        onSubmit={handleSubmit}>
             <input 
                 type="text"
                 value={climb}
@@ -58,7 +60,7 @@ function ClimbForm () {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Notes"></textarea>
-            <button type="submit">Add Climb</button>
+            <button className="submit-button" type="submit">Add Climb</button>
         </form>
     )
 }
