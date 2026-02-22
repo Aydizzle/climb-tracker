@@ -15,7 +15,7 @@ function ClimbForm () {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ climb, grade, notes, user}),
+            body: JSON.stringify({ climb, grade, notes, climber}),
         });
 
         if (response.ok) {
