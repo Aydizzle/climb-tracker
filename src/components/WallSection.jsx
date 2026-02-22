@@ -4,13 +4,13 @@ function WallSection({ wallName }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div>
-            <button onClick={() => setIsOpen(!isOpen)}>
+        <div className="wall-section">
+            <button className="wall-header" onClick={() => setIsOpen(!isOpen)}>
                 {wallName} {isOpen ? '▼' : '▶'}
             </button>
 
             {isOpen && (
-                <div>
+                <div className="wall-content">
                     <p>Content goes here - grades will be shown here</p>
                 </div>
             )}

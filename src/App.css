@@ -14,3 +14,30 @@ h1 {
   display: block;
   margin: 20px auto;
 }
+
+.wall-section {
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.wall-section button {
+  width: 100%;
+  text-align: left;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.wall-section button:hover {
+  background-color: #e0e0e0;
+}
+
+.wall-content {
+  padding: 1rem;
+  background-color: white;
+}
