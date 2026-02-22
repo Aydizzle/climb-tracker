@@ -22,7 +22,7 @@ function ClimbForm () {
             setClimb('');
             setGrade('');
             setNotes('');
-            setUser('');
+            setClimber('');
         }
     };
 
@@ -53,7 +53,7 @@ function ClimbForm () {
                 <option value="aidan">Aidan</option>
                 <option value="Frances">Frances</option>
             </select>
-            
+
             <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
