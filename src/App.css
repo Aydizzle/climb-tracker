@@ -2,6 +2,7 @@
   background-color: hsla(211.84,33.79%,28.43%,1);
   margin: 0 auto;
   border-radius: 15px;
+  max-width: 500px;
 }
 
 h1 {

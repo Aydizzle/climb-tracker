@@ -1,14 +1,12 @@
-import ClimbForm from "./components/ClimbForm"
+import WallSection from "./components/WallSection"
 import './App.css'
-import logo from './assets/Logo.webp'
 
 function App() {
   return (
-    <div className="app-container">
-      <img src={logo} alt="Rock It Logo" />
+    <div>
       <h1>Climb Tracker</h1>
-      <ClimbForm />
-
+      <WallSection wallName="Maria"/>
+      <WallSection wallName="Bruny"/>
     </div>
   );
 }
