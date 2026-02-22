@@ -9,14 +9,12 @@ h1 {
   color: hsla(343.22,82.66%,66.08%,1);
 }
 
-.app-container img {
-  width: 100px;
-  display: block;
-  margin: 20px auto;
+.app-container  {
+  padding: 1rem;
 }
 
 .wall-section {
-  margin-bottom: 1rem;
+  margin: 1rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;

@@ -29,6 +29,7 @@ function App() {
           <WallSection key={wall.id} wallName={wall.name} />
         ))
       )}
+      <WallSection wallName="Wallly" />
     </div>
   );
 }
