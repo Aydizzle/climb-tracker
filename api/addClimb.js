@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
-const { climb, grade, notes } = req.body;
+const { climb, grade, notes, user } = req.body;
 
 // Set up authentication
 const auth = new google.auth.GoogleAuth({
@@ -25,10 +25,10 @@ const date = new Date().toLocaleDateString(); // Get today's date
 
 await sheets.spreadsheets.values.append({
   spreadsheetId: process.env.SHEET_ID,
-  range: 'Climbs!A:D',
+  range: 'Climbs!A:G',
   valueInputOption: 'USER_ENTERED',
   resource: {
-    values: [[date, climb, grade, notes]],
+    values: [[date, climb, grade, notes, user]],
   },
 });
 
