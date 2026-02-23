@@ -30,6 +30,11 @@ function AdminPage() {
         <div>
             <select>
                 <option value="">Choose a wall</option>
+                {walls.map(wall => (
+                    <option key={wall.id} value={wall.id}>
+                        {wall.name}
+                    </option>
+                ))}
             </select>
         </div>
       )}
