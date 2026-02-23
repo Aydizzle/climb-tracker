@@ -23,7 +23,10 @@ function App() {
     <div className="app-container">
       <h1>Climb Tracker</h1>
       {loading ? (
-        <p>Loading Walls...</p>
+        <div style={{ textAlign: 'center', padding: '2rem'}}>
+          <div className="spinner"></div>
+          <p>Loading Walls...</p>
+        </div>
       ) : (
         walls.map(wall => (
           <WallSection key={wall.id} wallName={wall.name} />
