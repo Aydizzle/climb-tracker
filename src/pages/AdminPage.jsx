@@ -22,14 +22,21 @@ function AdminPage() {
     return (
         <div>
             <h1>Admin Page</h1>
-        {loading ? (
+        {/* {loading ? (
         <div style={{ textAlign: 'center', padding: '2rem'}}>
           <div className="spinner"></div>
           <p>Loading Walls...</p>
         </div>
-      ) : (
+      ) : ( */}
         <div>
             <select 
+                style={{ 
+                    display: 'block',
+                    margin: '0 auto',
+                    width: '200px',
+                    backgroundColor: 'pink'
+                    
+                }}
                 value={selectedWall}
                 onChange={(e) => setSelectedWall(e.target.value)}
             >
@@ -39,12 +46,18 @@ function AdminPage() {
                         {wall.name}
                     </option>
                 ))}
+                <option> I'm a wall </option>
             </select>
             {selectedWall && (
                 <div>
                     {GRADES.map(grade =>
                         <div key={grade.name}>
-                            <label style={{ backgroundColor: grade.color, padding: '5px' }}>{grade.name}</label>
+                            <label style={{    
+                                background: 
+                                    grade.name == 'Wild' ? 'linear-gradient(90deg, red, orange, yellow, green, blue, purple)'
+                                    : grade.color, 
+                                padding: '5px' }}>
+                            {grade.name}</label>
                             <input placeholder='number of climbs' type="number" />
                         </div>
                     )
@@ -55,7 +68,7 @@ function AdminPage() {
             )}
 
         </div>
-      )}
+      {/* )} */}
       </div>
     );
 
