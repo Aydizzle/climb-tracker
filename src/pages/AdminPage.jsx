@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { grades } from '/.const/grades';
+import { grades } from '/.constants/grades';
 
 function AdminPage() {
     const [walls, setWalls] = useState([]);
