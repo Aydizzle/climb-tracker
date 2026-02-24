@@ -42,7 +42,7 @@ function AdminPage() {
             </select>
             {selectedWall && (
                 <div>
-                    {grades.map(grade =>
+                    {GRADES.map(grade =>
                         <div key={grade.name}>
                             <label style={{ backgroundColor: grade.color, padding: '5px' }}>{grade.name}</label>
                             <input placeholder='number of climbs' type="number" />
