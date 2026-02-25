@@ -5,6 +5,7 @@ function AdminPage() {
     const [walls, setWalls] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedWall, setSelectedWall] = useState('');
+    const [gradeCounts, setGradeCounts] = useState({});
 
     useEffect(() => {
         async function fetchWalls() {
@@ -22,12 +23,12 @@ function AdminPage() {
     return (
         <div>
             <h1>Admin Page</h1>
-        {/* {loading ? (
+        {loading ? (
         <div style={{ textAlign: 'center', padding: '2rem'}}>
           <div className="spinner"></div>
           <p>Loading Walls...</p>
         </div>
-      ) : ( */}
+      ) : (
         <div>
             <select 
                 style={{ 
@@ -58,7 +59,16 @@ function AdminPage() {
                                     : grade.color, 
                                 padding: '5px' }}>
                             {grade.name}</label>
-                            <input placeholder='number of climbs' type="number" />
+                            <input 
+                            placeholder='number of climbs' 
+                            type="number"
+                            value={gradeCounts[grade.name] || ''}
+                            onChange={(e) => setGradeCounts({
+                                ...gradeCounts,
+                                [grade.name]: e.target.value
+                            })}
+                            />
+                        <button onClick={handleSubmit}>Submit Climbs</button>
                         </div>
                     )
 
@@ -68,7 +78,7 @@ function AdminPage() {
             )}
 
         </div>
-      {/* )} */}
+      )}
       </div>
     );
 
