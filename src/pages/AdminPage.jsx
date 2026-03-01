@@ -46,5 +46,23 @@ export default async function handler(req, res) {
     }
   });
 
+  const handleSubmit = async () => {
+  const response = await fetch('/api/addBulkClimbs', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      wallId: selectedWall,
+      gradeCounts: gradeCounts
+    })
+  });
+
+  if (response.ok) {
+    alert('Climbs updated!');
+    setGradeCounts({});
+  }
+};
+
   return res.status(200).json({ success: true });
 }
