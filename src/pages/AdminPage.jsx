@@ -1,87 +1,52 @@
-import { useState, useEffect } from 'react';
-import { GRADES } from '../constants/grades';
+import { google } from 'googleapis';
 
-function AdminPage() {
-    const [walls, setWalls] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedWall, setSelectedWall] = useState('');
-    const [gradeCounts, setGradeCounts] = useState({});
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-    useEffect(() => {
-        async function fetchWalls() {
-            const response = await fetch('/api/getWalls');
-            const data = await response.json();
-            setWalls(data.walls);
-            setLoading(false);
-        }
-        fetchWalls();
-    }, []);
-  
-  
+  const { wallId, gradeCounts } = req.body;
+
+  const auth = new google.auth.GoogleAuth({
+    credentials: {
+      type: 'service_account',
+      project_id: process.env.GOOGLE_PROJECT_ID,
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    },
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  });
+
+  const sheets = google.sheets({ version: 'v4', auth });
 
 
-    return (
-        <div>
-            <h1>Admin Page</h1>
-        {loading ? (
-        <div style={{ textAlign: 'center', padding: '2rem'}}>
-          <div className="spinner"></div>
-          <p>Loading Walls...</p>
-        </div>
-      ) : (
-        <div>
-            <select 
-                style={{ 
-                    display: 'block',
-                    margin: '0 auto',
-                    width: '200px',
-                    backgroundColor: 'pink'
-                    
-                }}
-                value={selectedWall}
-                onChange={(e) => setSelectedWall(e.target.value)}
-            >
-                <option value="">Choose a wall</option>
-                {walls.map(wall => (
-                    <option key={wall.id} value={wall.id}>
-                        {wall.name}
-                    </option>
-                ))}
-                <option> I'm a wall </option>
-            </select>
-            {selectedWall && (
-                <div>
-                    {GRADES.map(grade =>
-                        <div key={grade.name}>
-                            <label style={{    
-                                background: 
-                                    grade.name == 'Wild' ? 'linear-gradient(90deg, red, orange, yellow, green, blue, purple)'
-                                    : grade.color, 
-                                padding: '5px' }}>
-                            {grade.name}</label>
-                            <input 
-                            placeholder='number of climbs' 
-                            type="number"
-                            value={gradeCounts[grade.name] || ''}
-                            onChange={(e) => setGradeCounts({
-                                ...gradeCounts,
-                                [grade.name]: e.target.value
-                            })}
-                            />
-                        <button onClick={handleSubmit}>Submit Climbs</button>
-                        </div>
-                    )
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId: process.env.SHEET_ID,
+    range: 'CurrentClimbCounts!A:C',
+  });
 
-                    
-                    }
-                </div>
-            )}
+  const rows = response.data.values || [];
 
-        </div>
-      )}
-      </div>
-    );
 
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const rowWallId = row[0];
+    const rowGrade = row[1];
+
+    if (rowWallId === wallId && gradeCounts[rowGrade] !== undefined) {
+      rows[i][2] = gradeCounts[rowGrade];
+    }
+  }
+
+
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: process.env.SHEET_ID,
+    range: 'CurrentClimbCounts!A:C',
+    valueInputOption: 'USER_ENTERED',
+    resource: {
+      values: rows
+    }
+  });
+
+  return res.status(200).json({ success: true });
 }
-
-export default AdminPage;
